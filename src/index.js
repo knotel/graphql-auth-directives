@@ -1,12 +1,12 @@
-import { AuthorizationError } from "./errors";
-import * as jwt from "jsonwebtoken";
-import { SchemaDirectiveVisitor } from "graphql-tools";
-import {
+const { AuthorizationError } = require("./errors");
+const jwt = require("jsonwebtoken");
+const { SchemaDirectiveVisitor } = require("graphql-tools");
+const {
   DirectiveLocation,
   GraphQLDirective,
   GraphQLList,
   GraphQLString
-} from "graphql";
+} = require("graphql");
 
 const verifyAndDecodeToken = ({ context }) => {
   if (
@@ -39,7 +39,7 @@ const verifyAndDecodeToken = ({ context }) => {
   }
 };
 
-export class HasScopeDirective extends SchemaDirectiveVisitor {
+module.exports = class HasScopeDirective extends SchemaDirectiveVisitor {
   static getDirectiveDeclaration(directiveName, schema) {
     return new GraphQLDirective({
       name: "hasScope",
@@ -107,7 +107,7 @@ export class HasScopeDirective extends SchemaDirectiveVisitor {
       };
     });
   }
-}
+};
 
 export class HasRoleDirective extends SchemaDirectiveVisitor {
   static getDirectiveDeclaration(directiveName, schema) {

@@ -1,40 +1,40 @@
-import { ApolloServer } from "apollo-server";
-import { makeExecutableSchema } from "graphql-tools";
+const { ApolloServer } = require("apollo-server");
+const { gql } = require("apollo-server-express");
+const { makeExecutableSchema } = require("graphql-tools");
 
-import {
+const {
   IsAuthenticatedDirective,
   HasRoleDirective,
   HasScopeDirective
-} from "../src/index";
+} = require("../src/index");
 
-export const typeDefs = `
+module.exports = gql`
+  directive @hasScope(scopes: [String]) on OBJECT | FIELD_DEFINITION
+  directive @hasRole(roles: [Role]) on OBJECT | FIELD_DEFINITION
+  directive @isAuthenticated on OBJECT | FIELD_DEFINITION
 
-directive @hasScope(scopes: [String]) on OBJECT | FIELD_DEFINITION
-directive @hasRole(roles: [Role]) on OBJECT | FIELD_DEFINITION
-directive @isAuthenticated on OBJECT | FIELD_DEFINITION
-
-enum Role {
+  enum Role {
     reader
     user
     admin
-}
+  }
 
-type User {
+  type User {
     id: ID!
     name: String
-}
+  }
 
-type Item  {
+  type Item {
     id: ID!
     name: String
-}
+  }
 
-type Query {
+  type Query {
     userById(userId: ID!): User @hasScope(scopes: ["User:Read"])
     itemById(itemId: ID!): Item @hasScope(scopes: ["Item:Read"])
-}
+  }
 
-type Mutation {
+  type Mutation {
     createUser(id: ID!, name: String): User @hasScope(scopes: ["User:Create"])
     createItem(id: ID!, name: String): Item @hasScope(scopes: ["Item:Create"])
 
@@ -43,9 +43,10 @@ type Mutation {
 
     deleteUser(id: ID!): User @hasScope(scopes: ["User:Delete"])
     deleteItem(id: ID!): Item @hasScope(scopes: ["Item:Delete"])
-    
-    addUserItemRelationship(userId: ID!, itemId: ID!): User @hasScope(scopes: ["User:Create", "Item:Create"])
-}
+
+    addUserItemRelationship(userId: ID!, itemId: ID!): User
+      @hasScope(scopes: ["User:Create", "Item:Create"])
+  }
 `;
 
 const resolvers = {
