@@ -109,7 +109,7 @@ module.exports = class HasScopeDirective extends SchemaDirectiveVisitor {
   }
 };
 
-export class HasRoleDirective extends SchemaDirectiveVisitor {
+module.exports = class HasRoleDirective extends SchemaDirectiveVisitor {
   static getDirectiveDeclaration(directiveName, schema) {
     return new GraphQLDirective({
       name: "hasRole",
@@ -176,9 +176,9 @@ export class HasRoleDirective extends SchemaDirectiveVisitor {
       };
     });
   }
-}
+};
 
-export class IsAuthenticatedDirective extends SchemaDirectiveVisitor {
+module.exports = class IsAuthenticatedDirective extends SchemaDirectiveVisitor {
   static getDirectiveDeclaration(directiveName, schema) {
     return new GraphQLDirective({
       name: "isAuthenticated",
@@ -208,4 +208,4 @@ export class IsAuthenticatedDirective extends SchemaDirectiveVisitor {
       return next(result, args, context, info);
     };
   }
-}
+};

@@ -1,19 +1,18 @@
 // TODO: will need to set appropriate env vars
 
-import { ApolloServer } from "apollo-server";
-import { makeExecutableSchema } from "graphql-tools";
+const { ApolloServer } = require("apollo-server");
+const { gql } = require("apollo-server-express");
+const { makeExecutableSchema } = require("graphql-tools");
 
-import {
+const {
   IsAuthenticatedDirective,
   HasRoleDirective,
   HasScopeDirective
-} from "../../src/index";
+} = require("../src/index");
 
-import dotenv from "dotenv";
+require("dotenv").config();
 
-dotenv.config();
-
-export const typeDefs = `
+module.exports = gql`
 
 directive @hasScope(scopes: [String]) on OBJECT | FIELD_DEFINITION
 directive @hasRole(roles: [Role]) on OBJECT | FIELD_DEFINITION
@@ -36,21 +35,21 @@ type Item  {
 }
 
 type Query {
-    userById(userId: ID!): User @hasScope(scopes: ["User:Read"])
-    itemById(itemId: ID!): Item @hasScope(scopes: ["Item:Read"])
+    userById(userId: ID!): User @hasScope(scopes: ['User:Read'])
+    itemById(itemId: ID!): Item @hasScope(scopes: ['Item:Read'])
 }
 
 type Mutation {
-    createUser(id: ID!, name: String): User @hasScope(scopes: ["User:Create"])
-    createItem(id: ID!, name: String): Item @hasScope(scopes: ["Item:Create"])
+    createUser(id: ID!, name: String): User @hasScope(scopes: ['User:Create'])
+    createItem(id: ID!, name: String): Item @hasScope(scopes: ['Item:Create'])
 
-    updateUser(id: ID!, name: String): User @hasScope(scopes: ["User:Update"])
-    updateItem(id: ID!, name: String): Item @hasScope(scopes: ["Item:Update"])
+    updateUser(id: ID!, name: String): User @hasScope(scopes: ['User:Update'])
+    updateItem(id: ID!, name: String): Item @hasScope(scopes: ['Item:Update'])
 
-    deleteUser(id: ID!): User @hasScope(scopes: ["User:Delete"])
-    deleteItem(id: ID!): Item @hasScope(scopes: ["Item:Delete"])
+    deleteUser(id: ID!): User @hasScope(scopes: ['User:Delete'])
+    deleteItem(id: ID!): Item @hasScope(scopes: ['Item:Delete'])
     
-    addUserItemRelationship(userId: ID!, itemId: ID!): User @hasScope(scopes: ["User:Create", "Item:Create"])
+    addUserItemRelationship(userId: ID!, itemId: ID!): User @hasScope(scopes: ['User:Create', 'Item:Create'])
 }
 `;
 
