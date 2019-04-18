@@ -8,7 +8,8 @@ const {
   HasScopeDirective
 } = require("../src/index");
 
-module.exports = gql`
+
+const typeDefs = gql`
   directive @hasScope(scopes: [String]) on OBJECT | FIELD_DEFINITION
   directive @hasRole(roles: [Role]) on OBJECT | FIELD_DEFINITION
   directive @isAuthenticated on OBJECT | FIELD_DEFINITION
@@ -30,22 +31,22 @@ module.exports = gql`
   }
 
   type Query {
-    userById(userId: ID!): User @hasScope(scopes: ['User:Read'])
-    itemById(itemId: ID!): Item @hasScope(scopes: ['Item:Read'])
+    userById(userId: ID!): User @hasScope(scopes: ["User:Read"])
+    itemById(itemId: ID!): Item @hasScope(scopes: ["Item:Read"])
   }
 
   type Mutation {
-    createUser(id: ID!, name: String): User @hasScope(scopes: ['User:Create'])
-    createItem(id: ID!, name: String): Item @hasScope(scopes: ['Item:Create'])
+    createUser(id: ID!, name: String): User @hasScope(scopes: ["User:Create"])
+    createItem(id: ID!, name: String): Item @hasScope(scopes: ["Item:Create"])
 
-    updateUser(id: ID!, name: String): User @hasScope(scopes: ['User:Update'])
-    updateItem(id: ID!, name: String): Item @hasScope(scopes: ['Item:Update'])
+    updateUser(id: ID!, name: String): User @hasScope(scopes: ["User:Update"])
+    updateItem(id: ID!, name: String): Item @hasScope(scopes: ["Item:Update"])
 
-    deleteUser(id: ID!): User @hasScope(scopes: ['User:Delete'])
-    deleteItem(id: ID!): Item @hasScope(scopes: ['Item:Delete'])
+    deleteUser(id: ID!): User @hasScope(scopes: ["User:Delete"])
+    deleteItem(id: ID!): Item @hasScope(scopes: ["Item:Delete"])
 
     addUserItemRelationship(userId: ID!, itemId: ID!): User
-      @hasScope(scopes: ['User:Create', 'Item:Create'])
+      @hasScope(scopes: ["User:Create", "Item:Create"])
   }
 `;
 
