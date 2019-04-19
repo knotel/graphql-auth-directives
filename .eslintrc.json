@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "standard"
+  ],
+  "plugins": [
+    "standard"
+  ],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "no-console": "warn",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "graphql-auth-directives",
+  "name": "graphql-casbin",
   "version": "2.0.0",
   "description": "Add authorization to your GraphQL API using schema directives.",
   "main": "./src/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grand-stack/graphql-auth-directives.git"
+    "url": "git+https://github.com/knotel/graphql-casbin.git"
   },
   "devDependencies": {
     "apollo-cache-inmemory": "^1.4.2",
@@ -20,6 +20,11 @@
     "apollo-server-express": "^2.4.8",
     "ava": "^0.25.0",
     "dotenv": "^6.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
     "graphql": "^14.2.1",
     "husky": "^1.1.2",
     "nodemon": "^1.18.7",
@@ -33,11 +38,12 @@
   "author": "William Lyon",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/grand-stack/graphql-auth-directives/issues"
+    "url": "https://github.com/knotel/graphql-casbin/issues"
   },
-  "homepage": "https://github.com/grand-stack/graphql-auth-directives#readme",
+  "homepage": "https://github.com/knotel/graphql-casbin#readme",
   "dependencies": {
     "apollo-errors": "^1.9.0",
+    "eslint-plugin-standard": "^4.0.0",
     "graphql-tools": "^4.0.4",
     "jsonwebtoken": "^8.3.0"
   },
